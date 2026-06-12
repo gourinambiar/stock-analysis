@@ -1,3 +1,6 @@
+## Live Demo
+👉 [View Dashboard](https://stock-analysis-app01.streamlit.app/)
+
 # Stock Price Analysis & Prediction Dashboard
 
 An interactive dashboard for analyzing and predicting stock prices using technical indicators and machine learning.
