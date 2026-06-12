@@ -15,9 +15,17 @@ st.sidebar.header("Settings")
 ticker = st.sidebar.selectbox("Select Stock", ["AAPL", "GOOGL", "MSFT", "TSLA"])
 
 # Load data
-base = "C:/Users/Gouri/OneDrive/Documents/stock-analysis/data/raw/"
-df = pd.read_csv(base + f"{ticker}.csv", index_col=0, parse_dates=True)
-df = add_features(df)
+
+import yfinance as yf
+
+@st.cache_data
+def load_data(ticker):
+    df = yf.download(ticker, start="2020-01-01", end="2024-01-01", auto_adjust=True)
+    if isinstance(df.columns, pd.MultiIndex):
+        df.columns = df.columns.get_level_values(0)
+    return add_features(df)
+
+df = load_data(ticker)
 
 # --- Section 1: Candlestick Chart ---
 st.subheader(f"{ticker} Price Chart with Moving Averages")
